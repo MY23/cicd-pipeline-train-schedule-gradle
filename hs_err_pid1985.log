@@ -1,0 +1,97 @@
+#
+# There is insufficient memory for the Java Runtime Environment to continue.
+# Native memory allocation (mmap) failed to map 65536 bytes for committing reserved memory.
+# Possible reasons:
+#   The system is out of physical RAM or swap space
+#   The process is running with CompressedOops enabled, and the Java Heap may be blocking the growth of the native heap
+# Possible solutions:
+#   Reduce memory load on the system
+#   Increase physical memory or swap space
+#   Check if swap backing store is full
+#   Decrease Java heap size (-Xmx/-Xms)
+#   Decrease number of Java threads
+#   Decrease Java thread stack sizes (-Xss)
+#   Set larger code cache with -XX:ReservedCodeCacheSize=
+#   JVM is running with Unscaled Compressed Oops mode in which the Java heap is
+#     placed in the first 4GB address space. The Java Heap base address is the
+#     maximum limit for the native heap growth. Please use -XX:HeapBaseMinAddress
+#     to set the Java Heap base and to place the Java Heap above 4GB virtual address.
+# This output file may be truncated or incomplete.
+#
+#  Out of Memory Error (os_linux.cpp:2795), pid=1985, tid=0x00007f9d9fcfc700
+#
+# JRE version: OpenJDK Runtime Environment (8.0_352-b08) (build 1.8.0_352-b08)
+# Java VM: OpenJDK 64-Bit Server VM (25.352-b08 mixed mode linux-amd64 compressed oops)
+# Failed to write core dump. Core dumps have been disabled. To enable core dumping, try "ulimit -c unlimited" before starting Java again
+#
+
+---------------  T H R E A D  ---------------
+
+Current thread (0x00007f9db4117800):  JavaThread "C1 CompilerThread1" daemon [_thread_in_vm, id=1994, stack(0x00007f9d9fbfd000,0x00007f9d9fcfd000)]
+
+Stack: [0x00007f9d9fbfd000,0x00007f9d9fcfd000],  sp=0x00007f9d9fcfafc0,  free space=1015k
+Native frames: (J=compiled Java code, j=interpreted, Vv=VM code, C=native code)
+V  [libjvm.so+0xb6705d]  VMError::report_and_die()+0x1cd
+V  [libjvm.so+0x507d4a]  report_vm_out_of_memory(char const*, int, unsigned long, VMErrorType, char const*)+0xaa
+V  [libjvm.so+0x942818]  os::pd_commit_memory(char*, unsigned long, unsigned long, bool)+0xd8
+V  [libjvm.so+0x93a02e]  os::commit_memory(char*, unsigned long, unsigned long, bool)+0x2e
+V  [libjvm.so+0xb63bd4]  VirtualSpace::expand_by(unsigned long, bool)+0x1b4
+V  [libjvm.so+0x62018c]  CodeHeap::expand_by(unsigned long)+0x6c
+V  [libjvm.so+0x490a66]  CodeCache::allocate(int, bool)+0x46
+V  [libjvm.so+0x902cda]  nmethod::new_nmethod(methodHandle, int, int, CodeOffsets*, int, DebugInformationRecorder*, Dependencies*, CodeBuffer*, int, OopMapSet*, ExceptionHandlerTable*, ImplicitExceptionTable*, AbstractCompiler*, int)+0x1aa
+V  [libjvm.so+0x42c54a]  ciEnv::register_method(ciMethod*, int, CodeOffsets*, int, CodeBuffer*, int, OopMapSet*, ExceptionHandlerTable*, ImplicitExceptionTable*, AbstractCompiler*, int, bool, bool, RTMState)+0x39a
+V  [libjvm.so+0x36cff7]  Compilation::compile_method()+0x237
+V  [libjvm.so+0x36d392]  Compilation::Compilation(AbstractCompiler*, ciEnv*, ciMethod*, int, BufferBlob*)+0x282
+V  [libjvm.so+0x36e174]  Compiler::compile_method(ciEnv*, ciMethod*, int)+0xd4
+V  [libjvm.so+0x4bb212]  CompileBroker::invoke_compiler_on_method(CompileTask*)+0x8e2
+V  [libjvm.so+0x4bbf40]  CompileBroker::compiler_thread_loop()+0x500
+V  [libjvm.so+0xb0e612]  JavaThread::thread_main_inner()+0x212
+V  [libjvm.so+0x93f782]  java_start(Thread*)+0xf2
+C  [libpthread.so.0+0x7ea5]  start_thread+0xc5
+
+
+Current CompileTask:
+C1: 510898 5341       3       java.io.DataInputStream::readBoolean (30 bytes)
+
+
+---------------  P R O C E S S  ---------------
+
+Java Threads: ( => current thread )
+  0x0000562773d29000 JavaThread "Exec process Thread 6" [_thread_in_native, id=2262, stack(0x00007f9d9cfa3000,0x00007f9d9d0a4000)]
+  0x0000562773d28000 JavaThread "Exec process Thread 5" [_thread_in_native, id=2261, stack(0x00007f9d9c79f000,0x00007f9d9c8a0000)]
+  0x0000562773d27000 JavaThread "process reaper" daemon [_thread_in_native, id=2260, stack(0x00007f9d9d4b9000,0x00007f9d9d4f2000)]
+  0x00007f9d7c02a800 JavaThread "Exec process Thread 4" [_thread_blocked, id=2258, stack(0x00007f9d9daf2000,0x00007f9d9dbf3000)]
+  0x00007f9d7c00e000 JavaThread "Task worker for ':'" [_thread_blocked, id=2257, stack(0x00007f9d9c06f000,0x00007f9d9c170000)]
+  0x00007f9d7c00d000 JavaThread "Cache worker for Build Output Cleanup Cache (/home/cloud_user/cicd-pipeline-train-schedule-gradle/.gradle/buildOutputCleanup)" [_thread_blocked, id=2256, stack(0x00007f9d9dff5000,0x00007f9d9e0f6000)]
+  0x00007f9d7c00c000 JavaThread "Cache worker for task history cache (/home/cloud_user/cicd-pipeline-train-schedule-gradle/.gradle/4.6/taskHistory)" [_thread_blocked, id=2255, stack(0x00007f9d9cea2000,0x00007f9d9cfa3000)]
+  0x00007f9d7c008800 JavaThread "Build operations" [_thread_blocked, id=2254, stack(0x00007f9d9cda1000,0x00007f9d9cea2000)]
+  0x00007f9d7c007000 JavaThread "Cache worker for Artifact transforms cache (/home/cloud_user/.gradle/caches/transforms-1)" [_thread_blocked, id=2253, stack(0x00007f9d9e0f6000,0x00007f9d9e1f7000)]
+  0x00007f9d7c003800 JavaThread "Cache worker for file hash cache (/home/cloud_user/cicd-pipeline-train-schedule-gradle/.gradle/4.6/fileHashes)" [_thread_blocked, id=2250, stack(0x00007f9d9e3f9000,0x00007f9d9e4fa000)]
+  0x00007f9d7c002000 JavaThread "Stdin handler" [_thread_blocked, id=2249, stack(0x00007f9d9e1f7000,0x00007f9d9e2f8000)]
+  0x00007f9d7c001000 JavaThread "Asynchronous log dispatcher for DefaultDaemonConnection: socket connection from /0:0:0:0:0:0:0:1:39155 to /0:0:0:0:0:0:0:1:33010" [_thread_blocked, id=2248, stack(0x00007f9d8cc9a000,0x00007f9d8cd9b000)]
+  0x00007f9d6800c000 JavaThread "Daemon worker Thread 3" [_thread_blocked, id=2247, stack(0x00007f9d8cb99000,0x00007f9d8cc9a000)]
+  0x00007f9d6800f000 JavaThread "Cancel handler" [_thread_blocked, id=2246, stack(0x00007f9d8cd9b000,0x00007f9d8ce9c000)]
+  0x00007f9d6800b000 JavaThread "Handler for socket connection from /0:0:0:0:0:0:0:1:39155 to /0:0:0:0:0:0:0:1:33010" [_thread_blocked, id=2245, stack(0x00007f9d9e2f8000,0x00007f9d9e3f9000)]
+  0x00007f9d70016000 JavaThread "Daemon Thread 3" [_thread_blocked, id=2244, stack(0x00007f9d9e6fa000,0x00007f9d9e7fb000)]
+  0x00007f9d6419c000 JavaThread "File lock request listener" [_thread_in_native, id=2008, stack(0x00007f9d9dbf3000,0x00007f9d9dcf4000)]
+  0x00007f9d64196000 JavaThread "Cache worker for file hash cache (/home/cloud_user/.gradle/caches/4.6/fileHashes)" [_thread_blocked, id=2007, stack(0x00007f9d9dcf4000,0x00007f9d9ddf5000)]
+  0x00007f9db5123000 JavaThread "Daemon periodic checks" [_thread_blocked, id=1998, stack(0x00007f9d9e7fb000,0x00007f9d9e8fc000)]
+  0x00007f9db5105800 JavaThread "Incoming local TCP Connector on port 39155" [_thread_in_native, id=1997, stack(0x00007f9d9e8fc000,0x00007f9d9e9fd000)]
+  0x00007f9db411a800 JavaThread "Service Thread" daemon [_thread_blocked, id=1995, stack(0x00007f9d9fafb000,0x00007f9d9fbfc000)]
+=>0x00007f9db4117800 JavaThread "C1 CompilerThread1" daemon [_thread_in_vm, id=1994, stack(0x00007f9d9fbfd000,0x00007f9d9fcfd000)]
+  0x00007f9db4115800 JavaThread "C2 CompilerThread0" daemon [_thread_blocked, id=1993, stack(0x00007f9d9fcfe000,0x00007f9d9fdfe000)]
+  0x00007f9db4105000 JavaThread "Signal Dispatcher" daemon [_thread_blocked, id=1992, stack(0x00007f9d9fdfe000,0x00007f9d9feff000)]
+  0x00007f9db40da800 JavaThread "Finalizer" daemon [_thread_blocked, id=1991, stack(0x00007f9d9feff000,0x00007f9da0000000)]
+  0x00007f9db40d6000 JavaThread "Reference Handler" daemon [_thread_blocked, id=1990, stack(0x00007f9da40d5000,0x00007f9da41d6000)]
+  0x00007f9db404b800 JavaThread "main" [_thread_blocked, id=1988, stack(0x00007f9dbb514000,0x00007f9dbb614000)]
+
+Other Threads:
+  0x00007f9db40cc000 VMThread [stack: 0x00007f9da41d7000,0x00007f9da42d7000] [id=1989]
+  0x00007f9db411d800 WatcherThread [stack: 0x00007f9d9f9fb000,0x00007f9d9fafb000] [id=1996]
+
+VM state:synchronizing (normal execution)
+
+VM Mutex/Monitor currently owned by a thread:  ([mutex/lock_event])
+[0x00007f9db4048370] CodeCache_lock - owner thread: 0x00007f9db4117800
+[0x00007f9db4048ff0] Threads_lock - owner thread: 0x00007f9db40cc000
+[0x00007f9db40499f0] Compile_lock - owner thread: 0x00007f9db4117800
